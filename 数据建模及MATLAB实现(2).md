@@ -73,6 +73,7 @@ PCA是一种数学降维方法，其主要目的是将原来众多具有一定�
    \end{bmatrix}
    $$
 ### 主成分分析MATLAB程序设计
+以下为主成分分析的MATLAB程序PCA.m
 ```
 function [F,new_score]=PCA(A,T)
 a=size(A,1);
