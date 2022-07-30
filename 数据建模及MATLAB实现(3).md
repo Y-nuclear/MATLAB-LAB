@@ -57,3 +57,29 @@ $$
 
 在输入空间中，若数据不是线性可分的，支持向量机通过非线性映射$\varnothing:R^n\rightarrow F$将数据映射到某个点积空间$F$,然后在点积空间中执行上述线性算法。在文献中，这一函数称为“核函数”。
 ### 支持向量机MATLAB程序设计
+支持向量机MATLAB程序设计——SVM.m如下：
+```
+function [x,W,R]=SVM(X0)
+for i=1:3
+    X(:,i)=(X0(:,i)-mean(X0(:,i)))/std(X0(:,i));
+end
+[m,n]=size(X);
+e=ones(m,1);
+D=[X0(:,4)];
+B=zeros(m,m);
+C=zeros(m,m);
+for i =1:m
+    B(i,i)=1;
+    C(i,i)=D(i,1);
+end
+A=[-X(:,1).*D,-X(:,2).*D,-X(:,3).*D,D,-B];
+b=-e;
+f=[0,0,0,0,ones(1,m)];
+lb=[-inf,-inf,-inf,-inf,zeros(1,m)]';
+x=linprog(f,A,b,[],[],lb);
+W=[x(1,1),x(2,1),x(3,1)];
+CC=x(4,1);
+R1=X*W'-CC;
+R2=sign(R1);
+R=[R1,R2];
+```
